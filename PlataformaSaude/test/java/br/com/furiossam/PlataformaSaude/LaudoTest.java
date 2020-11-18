@@ -109,6 +109,7 @@ private LaudoService laudoService;
 		
 	}
 	
+	@Test
 	public void listarLaudosPeloIdMedico() {
 		
 		Medico medicoA = new Medico();
