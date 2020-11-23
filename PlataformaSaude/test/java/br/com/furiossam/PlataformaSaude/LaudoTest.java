@@ -1,6 +1,7 @@
 package br.com.furiossam.PlataformaSaude;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.util.ArrayList;
@@ -40,6 +41,21 @@ private LaudoService laudoService;
 	}
 	
 	@Test
+	public void cadastrarErro() {
+		
+		Laudo a = new Laudo();
+		a.setId(1);
+		a.setTexto("teste1");
+		
+		laudoService.cadastrar(a);
+		
+		assertNotEquals(2, laudoService.listar().size());
+		
+		laudoService.listar().clear();
+		
+	}
+	
+	@Test
 	public void listar(){
 		Laudo a = new Laudo();
 		a.setTexto("teste1");
@@ -51,6 +67,22 @@ private LaudoService laudoService;
 		laudoService.cadastrar(b);
 		
 		assertEquals(2, laudoService.listar().size());
+		
+		laudoService.listar().clear();
+		
+	}
+	
+	public void listarErro(){
+		Laudo a = new Laudo();
+		a.setTexto("teste1");
+		
+		Laudo b = new Laudo();
+		b.setTexto("teste2");
+		
+		laudoService.cadastrar(a);
+		laudoService.cadastrar(b);
+		
+		assertNotEquals(4, laudoService.listar().size());
 		
 		laudoService.listar().clear();
 		
@@ -78,6 +110,27 @@ private LaudoService laudoService;
 	}
 	
 	@Test
+	public void editarErro() {
+		
+		Laudo a = new Laudo();
+		a.setId(1);
+		a.setTexto("teste1");
+		
+		laudoService.cadastrar(a);
+		
+		Laudo atendimentoPesquisado = laudoService.listarPeloBy(1);
+		atendimentoPesquisado.setTexto("teste2");
+		laudoService.editar(atendimentoPesquisado);
+		
+		Laudo atendimentoEditado = laudoService.listarPeloBy(1);
+		
+		assertNotEquals("teste1", atendimentoEditado.getTexto());
+		
+		laudoService.listar().clear();
+		
+	}
+	
+	@Test
 	public void deletar() {
 		
 		
@@ -95,6 +148,23 @@ private LaudoService laudoService;
 		
 	}
 	
+	@Test
+	public void deletarErro() {
+		
+		
+		
+		Laudo a = new Laudo();
+		a.setId(1);
+		a.setTexto("teste1");
+		
+		laudoService.cadastrar(a);
+		laudoService.deletar(1);
+		
+		assertNotEquals(2, laudoService.listar().size());
+		
+		laudoService.listar().clear();
+		
+	}
 	
 	@Test
 	public void listarPeloBy() {
@@ -106,6 +176,19 @@ private LaudoService laudoService;
 		laudoService.cadastrar(a);
 		
 		assertNotNull(laudoService.listarPeloBy(1));
+		
+	}
+	
+	@Test
+	public void listarPeloByErro() {
+		
+		Laudo a = new Laudo();
+		a.setId(1);
+		a.setTexto("teste1");
+		
+		laudoService.cadastrar(a);
+		
+		assertEquals(null,laudoService.listarPeloBy(2));
 		
 	}
 	
@@ -132,6 +215,35 @@ private LaudoService laudoService;
 		listaParaTeste = laudoService.listarLaudosPeloIdMedico(1);
 		
 		assertEquals(1, listaParaTeste.size());
+		
+		
+		
+		
+	}
+	
+	@Test
+	public void listarLaudosPeloIdMedicoErro() {
+		
+		Medico medicoA = new Medico();
+		medicoA.setId(1);
+		medicoA.setNome("medicoA");
+		
+		
+		Medico medicoB = new Medico();
+		medicoB.setId(2);
+		medicoB.setNome("medicoB");
+		
+		Laudo a = new Laudo();
+		a.setId(1);
+		a.setTexto("teste1");
+		a.setMedico(medicoA);
+		
+		laudoService.cadastrar(a);
+		List<Laudo> listaParaTeste = new ArrayList<Laudo>();
+		
+		listaParaTeste = laudoService.listarLaudosPeloIdMedico(1);
+		
+		assertNotEquals(3, listaParaTeste.size());
 		
 		
 		

@@ -33,7 +33,7 @@ public class AtendimentoDAOImpl implements AtendimentoDAO {
 					naoEncontrou=false;
 				}	
 				indice++;
-		}while(naoEncontrou);
+		}while((naoEncontrou)&&(indice<listaDeAtendimentos.size()));
 		
 	}
 
@@ -48,7 +48,7 @@ public class AtendimentoDAOImpl implements AtendimentoDAO {
 					naoEncontrou=false;
 				}
 				indice++;
-		}while(naoEncontrou);
+		}while((naoEncontrou)&&(indice<listaDeAtendimentos.size()));
 				
 	}
 
@@ -63,7 +63,7 @@ public class AtendimentoDAOImpl implements AtendimentoDAO {
 					naoEncontrou=false;
 				}
 				indice++;
-		}while(naoEncontrou);
+		}while((naoEncontrou)&&(indice<listaDeAtendimentos.size()));
 		
 		return atendimentoRetornado;
 	}

@@ -34,7 +34,7 @@ public class MedicoDAOImpl implements MedicoDAO{
 					naoEncontrou=false;
 				}	
 				indice++;
-		}while(naoEncontrou);
+		}while((naoEncontrou)&&(indice<listaDeMedicos.size()));
 		
 	}
 
@@ -49,7 +49,7 @@ public class MedicoDAOImpl implements MedicoDAO{
 					naoEncontrou=false;
 				}
 				indice++;
-		}while(naoEncontrou);
+		}while((naoEncontrou)&&(indice<listaDeMedicos.size()));
 				
 	}
 
@@ -64,7 +64,7 @@ public class MedicoDAOImpl implements MedicoDAO{
 					naoEncontrou=false;
 				}
 				indice++;
-		}while(naoEncontrou);
+		}while((naoEncontrou)&&(indice<listaDeMedicos.size()));
 		
 		return medicoRetornado;
 	}

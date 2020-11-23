@@ -1,6 +1,7 @@
 package br.com.furiossam.PlataformaSaude;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.util.ArrayList;
@@ -41,6 +42,21 @@ public class AtendimentoTest {
 	}
 	
 	@Test
+	public void cadastrarErro() {
+		
+		Atendimento a = new Atendimento();
+		a.setId(1);
+		a.setNomeProcedimento("teste1");
+		
+		atendimentoService.cadastrar(a);
+		
+		assertNotEquals(2, atendimentoService.listar().size());
+		
+		atendimentoService.listar().clear();
+		
+	}
+	
+	@Test
 	public void listar(){
 		Atendimento a = new Atendimento();
 		a.setNomeProcedimento("teste1");
@@ -52,6 +68,24 @@ public class AtendimentoTest {
 		atendimentoService.cadastrar(b);
 		
 		assertEquals(2, atendimentoService.listar().size());
+		
+		atendimentoService.listar().clear();
+		
+	}
+	
+	
+	@Test
+	public void listarErro(){
+		Atendimento a = new Atendimento();
+		a.setNomeProcedimento("teste1");
+		
+		Atendimento b = new Atendimento();
+		b.setNomeProcedimento("teste2");
+		
+		atendimentoService.cadastrar(a);
+		atendimentoService.cadastrar(b);
+		
+		assertNotEquals(1, atendimentoService.listar().size());
 		
 		atendimentoService.listar().clear();
 		
@@ -79,6 +113,27 @@ public class AtendimentoTest {
 	}
 	
 	@Test
+	public void editarErro() {
+		
+		Atendimento a = new Atendimento();
+		a.setId(1);
+		a.setNomeProcedimento("teste1");
+		
+		atendimentoService.cadastrar(a);
+		
+		Atendimento atendimentoPesquisado = atendimentoService.listarPeloBy(1);
+		atendimentoPesquisado.setNomeProcedimento("teste2");
+		atendimentoService.editar(atendimentoPesquisado);
+		
+		Atendimento atendimentoEditado = atendimentoService.listarPeloBy(1);
+		
+		assertNotEquals("teste1", atendimentoEditado.getNomeProcedimento());
+		
+		atendimentoService.listar().clear();
+		
+	}
+	
+	@Test
 	public void deletar() {
 		
 		
@@ -96,6 +151,23 @@ public class AtendimentoTest {
 		
 	}
 	
+	@Test
+	public void deletarErro() {
+		
+		
+		
+		Atendimento a = new Atendimento();
+		a.setId(1);
+		a.setNomeProcedimento("teste1");
+		
+		atendimentoService.cadastrar(a);
+		atendimentoService.deletar(1);
+		
+		assertNotEquals(2, atendimentoService.listar().size());
+		
+		atendimentoService.listar().clear();
+		
+	}
 	
 	@Test
 	public void listarPeloBy() {
@@ -107,6 +179,19 @@ public class AtendimentoTest {
 		atendimentoService.cadastrar(a);
 		
 		assertNotNull(atendimentoService.listarPeloBy(1));
+		
+	}
+	
+	@Test
+	public void listarPeloByErro() {
+		
+		Atendimento a = new Atendimento();
+		a.setId(1);
+		a.setNomeProcedimento("teste1");
+		
+		atendimentoService.cadastrar(a);
+		
+		assertEquals(null,atendimentoService.listarPeloBy(3));
 		
 	}
 	
@@ -133,6 +218,35 @@ public class AtendimentoTest {
 		listaParaTeste = atendimentoService.listarAtendimentosPeloIdMedico(1);
 		
 		assertEquals(1, listaParaTeste.size());
+		
+		
+		
+		
+	}
+	
+	@Test
+	public void listarAtendimentosPeloIdMedicoErro() {
+		
+		Medico medicoA = new Medico();
+		medicoA.setId(1);
+		medicoA.setNome("medicoA");
+		
+		
+		Medico medicoB = new Medico();
+		medicoB.setId(2);
+		medicoB.setNome("medicoB");
+		
+		Atendimento a = new Atendimento();
+		a.setId(1);
+		a.setNomeProcedimento("teste1");
+		a.setMedico(medicoA);
+		
+		atendimentoService.cadastrar(a);
+		List<Atendimento> listaParaTeste = new ArrayList<Atendimento>();
+		
+		listaParaTeste = atendimentoService.listarAtendimentosPeloIdMedico(1);
+		
+		assertNotEquals(3, listaParaTeste.size());
 		
 		
 		

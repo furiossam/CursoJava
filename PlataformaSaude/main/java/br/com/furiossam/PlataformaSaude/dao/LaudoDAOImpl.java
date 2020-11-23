@@ -35,7 +35,7 @@ public class LaudoDAOImpl implements LaudoDAO {
 					naoEncontrou=false;
 				}	
 				indice++;
-		}while(naoEncontrou);
+		}while((naoEncontrou)&&(indice<listaDeLaudos.size()));
 		
 	}
 
@@ -50,7 +50,7 @@ public class LaudoDAOImpl implements LaudoDAO {
 					naoEncontrou=false;
 				}
 				indice++;
-		}while(naoEncontrou);
+		}while((naoEncontrou)&&(indice<listaDeLaudos.size()));
 				
 	}
 
@@ -65,7 +65,7 @@ public class LaudoDAOImpl implements LaudoDAO {
 					naoEncontrou=false;
 				}
 				indice++;
-		}while(naoEncontrou);
+		}while((naoEncontrou)&&(indice<listaDeLaudos.size()));
 		
 		return laudoRetornado;
 	}
